@@ -9,6 +9,8 @@ import (
 
 func RouterBinder(ge *gin.Engine) {
 
+	ge.GET("/", v1.ServerAbout)
+
 	ge.POST("/auth/login", v1.Login)
 
 	ge.Use(middleware.JwtAuth())
