@@ -17,4 +17,4 @@ replace go.ebupt.com/lets => ../../../go/src/go.ebupt.com/lets/
 ```
 * 运行 go run main.go
 
-* Web服务端口为 8099
+* Web服务端口为 8099 , 访问 http://127.0.0.1:8099/ 可看见欢迎页面
