@@ -7,7 +7,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
-	"go.ebupt.com/lets/server"
+	"go.ebupt.com/lets/app"
 	"go.ebupt.com/lets/server/auth"
 	"go.ebupt.com/lets/server/helper"
 	"go.ebupt.com/lets/server/request"
@@ -21,7 +21,7 @@ type LoginForm struct {
 
 func Login(c *gin.Context) {
 
-	server.LRedis.Set(server.LRedisCtx, "login_key", "Hello world", 0)
+	app.LRedis.Set(app.LRedisCtx, "login_key", "Hello world", 0)
 
 	R := response.New(c)
 	var form LoginForm
@@ -35,7 +35,7 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	result := server.LDB.Where("login = ?", form.Login).First(&admin)
+	result := app.LDB.Where("login = ?", form.Login).First(&admin)
 
 	if result.Error != nil {
 		if gorm.IsRecordNotFoundError(result.Error) {
@@ -72,7 +72,7 @@ func Login(c *gin.Context) {
 		"other_identify": "otheridenfity",
 	}
 
-	jwtToken, err := helper.JwtGenerateToken(jwtIdentify, server.AppConfig.JwtIssuer, 3*time.Hour)
+	jwtToken, err := helper.JwtGenerateToken(jwtIdentify, app.AppConfig.JwtIssuer, 3*time.Hour)
 
 	if err != nil {
 		R.Error500(fmt.Sprintf("生成JwtToken失败%v", err))
@@ -80,7 +80,7 @@ func Login(c *gin.Context) {
 	}
 
 	admin.LastLogin = time.Now()
-	server.LDB.Save(&admin)
+	app.LDB.Save(&admin)
 
 	R.Success(response.ResponseMap{
 		"code":    200,

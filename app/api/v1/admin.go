@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"go.ebupt.com/lets/server"
+	"go.ebupt.com/lets/app"
 	"go.ebupt.com/lets/server/auth"
 	"go.ebupt.com/lets/server/request"
 	"go.ebupt.com/lets/server/response"
@@ -16,14 +16,14 @@ import (
 func GetAdmin(c *gin.Context) {
 
 	page, _ := strconv.Atoi(c.DefaultQuery("page", "1"))
-	pageSize, _ := strconv.Atoi(c.DefaultQuery("pageSize", server.AppConfig.PageSize))
+	pageSize, _ := strconv.Atoi(c.DefaultQuery("pageSize", app.AppConfig.PageSize))
 
 	var admins []model.Admin
 
 	r := response.New(c)
 
 	r.Pagination(&response.PageOption{
-		DB:      server.LDB,
+		DB:      app.LDB,
 		Page:    page,
 		Limit:   pageSize,
 		OrderBy: []string{"created_at desc"},
@@ -61,7 +61,7 @@ func CreateAdmin(c *gin.Context) {
 	admin.Status = form.Status
 	admin.LastLogin = time.Now()
 
-	result := server.LDB.Create(&admin)
+	result := app.LDB.Create(&admin)
 
 	if result.Error != nil {
 		R.Error500(result.Error)
