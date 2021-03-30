@@ -20,6 +20,21 @@ Port = 6379
 Password = ""
 DB = 0 
 
+[MQTT.mosquitto]
+Broker="test.mosquitto.org"
+Port=1883
+ClientID=""
+UserName=""
+Password=""
+
+[MQTT.chigo]
+Broker="39.106.216.109"
+Port=1883
+ClientID=""
+UserName="9YK8J8U9spGsBFHe6Ksibg"
+Password="SZiwACdaa7ssqbnY"
+
+
 
 [Server]
 Port = 8099
