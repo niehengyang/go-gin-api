@@ -1,0 +1,25 @@
+AppName = "LetsFramework"
+RunMode = "debug"
+PageSize = "20" 
+JwtIssuer = "letsproject.ebupt.com"
+
+[Logger]
+LogPath = "runtime/logs"
+LogFile = "log.log"
+
+[Mysql]
+IP = "127.0.0.1"
+Port = 3306
+User = "root"
+Password = "boom123456"
+Database = "blog"
+
+[Redis]
+IP = "127.0.0.1"
+Port = 6379
+Password = ""
+DB = 0 
+
+
+[Server]
+Port = 8099
