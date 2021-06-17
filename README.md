@@ -16,6 +16,9 @@ find . -name ".git" | xargs rm -Rf
 //拉取letsframework-> git clone https://github.com/niehengyang/letsframework.git
 replace go.ebupt.com/lets => ../../../go/src/lets/ 
 ```
+
+* 进入{项目目录}，创建根据日志配置路径创建相应文件夹
+
 * 运行 go run main.go
 
 * Web服务端口为 8901 , 访问 http://127.0.0.1:8901/ 可看见欢迎页面
