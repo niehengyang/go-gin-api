@@ -6,7 +6,7 @@ import (
 	"go.ebupt.com/lets/server/request"
 	"go.ebupt.com/lets/server/response"
 	"gotutorial/model"
-	"gotutorial/service/utils"
+	"gotutorial/utils"
 )
 
 func RoleList(c *gin.Context) {

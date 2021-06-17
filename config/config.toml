@@ -1,6 +1,6 @@
 AppName = "LetsFramework"
 RunMode = "debug"
-PageSize = "20"
+PageSize = "10"
 JwtIssuer = "letsproject.ebupt.com"
 
 [Logger]

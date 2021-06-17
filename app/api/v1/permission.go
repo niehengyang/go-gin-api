@@ -5,7 +5,7 @@ import (
 	"go.ebupt.com/lets/app"
 	"go.ebupt.com/lets/server/response"
 	"gotutorial/model"
-	"gotutorial/service/utils"
+	"gotutorial/utils"
 )
 
 func PermissionList(c *gin.Context) {
