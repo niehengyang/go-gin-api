@@ -15,7 +15,7 @@ import (
 )
 
 type LoginForm struct {
-	Login    string `valid:"Required" form:"login"`
+	Username string `valid:"Required" form:"username"`
 	Password string `valid:"Required" form:"password"`
 }
 
@@ -35,7 +35,7 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	result := app.LDB.Where("login = ?", form.Login).First(&admin)
+	result := app.LDB.Where("username = ?", form.Username).First(&admin)
 
 	if result.Error != nil {
 		if gorm.IsRecordNotFoundError(result.Error) {
@@ -68,7 +68,7 @@ func Login(c *gin.Context) {
 	}
 
 	jwtIdentify := map[string]interface{}{
-		"user_id":        admin.ID,
+		"user_id":        admin.BaseModel.ID,
 		"other_identify": "otheridenfity",
 	}
 
@@ -79,7 +79,8 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	admin.LastLogin = time.Now()
+	admin.Token = jwtToken
+	admin.LastLogin = model.XTime{time.Now()}
 	app.LDB.Save(&admin)
 
 	R.Success(response.ResponseMap{
@@ -91,4 +92,13 @@ func Login(c *gin.Context) {
 }
 func Logout(c *gin.Context) {
 
+}
+
+/**
+获取当前登录账号
+*/
+func GetLoginAccount(c *gin.Context) *model.Admin {
+	accountInterface := c.MustGet("loginUser")
+	loginAccount := accountInterface.(*model.Admin)
+	return loginAccount
 }

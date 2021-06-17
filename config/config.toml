@@ -1,6 +1,6 @@
 AppName = "LetsFramework"
 RunMode = "debug"
-PageSize = "20" 
+PageSize = "20"
 JwtIssuer = "letsproject.ebupt.com"
 
 [Logger]
@@ -8,17 +8,17 @@ LogPath = "runtime/logs"
 LogFile = "log.log"
 
 [Mysql]
-IP = "127.0.0.1"
+IP = "mysql"
 Port = 3306
 User = "root"
 Password = "boom123456"
-Database = "blog"
+Database = "ddbdapp"
 
 [Redis]
-IP = "127.0.0.1"
+IP = "redis"
 Port = 6379
 Password = ""
-DB = 0 
+DB = 0
 
 [MQTT.mosquitto]
 Broker="test.mosquitto.org"
@@ -37,4 +37,4 @@ Password="SZiwACdaa7ssqbnY"
 
 
 [Server]
-Port = 8099
+Port = 8901

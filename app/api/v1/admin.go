@@ -2,15 +2,14 @@ package v1
 
 import (
 	"fmt"
-	"gotutorial/model"
-	"strconv"
-	"time"
-
 	"github.com/gin-gonic/gin"
 	"go.ebupt.com/lets/app"
 	"go.ebupt.com/lets/server/auth"
 	"go.ebupt.com/lets/server/request"
 	"go.ebupt.com/lets/server/response"
+	"gotutorial/model"
+	"strconv"
+	"time"
 )
 
 func GetAdmin(c *gin.Context) {
@@ -27,14 +26,13 @@ func GetAdmin(c *gin.Context) {
 		Page:    page,
 		Limit:   pageSize,
 		OrderBy: []string{"created_at desc"},
-	}, &admins)
-
+	}, &admins, r.AfterPaginator)
 }
 
 type AdminCreateForm struct {
 	Name     string `valid:"Required" form:"name"`
 	Status   int8   `valid:"Range(0,1)" form:"status"`
-	Login    string `valid:"Required;Mobile" form:"login"`
+	Username string `valid:"Required;Mobile" form:"username"`
 	Password string `valid:"Required" form:"password"`
 }
 
@@ -51,7 +49,7 @@ func CreateAdmin(c *gin.Context) {
 
 	admin := new(model.Admin)
 	admin.Name = form.Name
-	admin.Login = form.Login
+	admin.Username = form.Username
 	secretPassword, err := auth.HashPassword(form.Password)
 	if err != nil {
 		R.Error500(fmt.Sprintf("密码加密错误:%v", err))
@@ -59,7 +57,7 @@ func CreateAdmin(c *gin.Context) {
 	}
 	admin.Password = string(secretPassword)
 	admin.Status = form.Status
-	admin.LastLogin = time.Now()
+	admin.LastLogin = model.XTime{time.Now()}
 
 	result := app.LDB.Create(&admin)
 

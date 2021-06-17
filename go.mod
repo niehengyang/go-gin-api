@@ -10,4 +10,4 @@ require (
 	go.ebupt.com/lets v0.0.1
 )
 
-replace go.ebupt.com/lets => ../../../go/src/go.ebupt.com/lets/
+replace go.ebupt.com/lets => ../../go/src/lets/
